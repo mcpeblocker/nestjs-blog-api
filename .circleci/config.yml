@@ -12,19 +12,11 @@ jobs:
           command: npm run test
       - add_ssh_keys
       - run: ssh-keyscan mcpeblocker.uz >> ~/.ssh/known_hosts
-      - run:
-          name: Access to server
-          command: ssh root@mcpeblocker.uz
-      - run:
-          name: Locate the project
-          command: cd ~/Projects/api.blog.mcpeblocker.uz
-      - run:
-          name: Pull from repository
-          command: git pull
-      - run:
-          name: Restart pm2 process
-          command: pm2 restart "api.blog.mcpeblocker.uz"
+      - run: ssh -v root@mcpeblocker.uz "./deploy-blog.sh"
 workflows:
   build-and-test:
     jobs:
-      - build-and-test
+      - build-and-test:
+          filters:
+            branches:
+              only: master
