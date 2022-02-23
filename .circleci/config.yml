@@ -10,6 +10,7 @@ jobs:
       - node/install-packages
       - run:
           command: npm run test
+      - add_ssh_keys
       - run:
           name: Access to server
           command: ssh root@mcpeblocker.uz
