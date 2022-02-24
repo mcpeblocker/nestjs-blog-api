@@ -11,6 +11,7 @@ services:
       - docker.env
     networks:
       - postgres
+      - pg-server
 
   pgadmin:
     links:
@@ -26,6 +27,29 @@ services:
     networks:
       - postgres
 
+  backend:
+    container_name: apiblogmcpeblocker
+    image: apiblogmcpeblocker
+    build:
+      context: .
+    command: npm run start:prod
+    env_file:
+      - .env
+    ports:
+      - 5555:5555
+      - 9229:9229
+      - 9230:9230
+    networks:
+      - pg-server
+    volumes:
+      - ./src:/app/src:ro
+      - ./package.json:/app/package.json
+      - ./package-lock.json:/app/package-lock.json
+      - ./node_modules:/app/node_modules:ro
+    depends_on:
+      - postgres
+
 networks:
   postgres:
     driver: bridge
+  pg-server:
