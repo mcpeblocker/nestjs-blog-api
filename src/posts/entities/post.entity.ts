@@ -14,6 +14,8 @@ export class Post {
   title: string;
   @Column()
   description: string;
+  @Column()
+  content: string;
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;
   @UpdateDateColumn({ name: 'updated_at' })

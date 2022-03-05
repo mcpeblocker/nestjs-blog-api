@@ -10,5 +10,5 @@ export class CreatePostDto {
 
   @IsString()
   @IsNotEmpty()
-  body: string;
+  content: string;
 }
