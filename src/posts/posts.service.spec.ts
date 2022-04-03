@@ -6,26 +6,17 @@ import { Post } from './entities/post.entity';
 describe('PostsService', () => {
   let service: PostsService;
 
-  const mockRepository = () => ({
-    create: jest.fn(),
-    save: jest.fn(),
-    find: jest.fn(),
-    findOne: jest.fn(),
-    update: jest.fn(),
-    delete: jest.fn(),
-  });
-
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         PostsService,
         {
           provide: getRepositoryToken(Post),
-          useValue: mockRepository,
+          useValue: {},
         },
       ],
     }).compile();
-    service = module.get<PostsService>(PostsService);
+    service = await module.get<PostsService>(PostsService);
   });
 
   it('should be defined', () => {
